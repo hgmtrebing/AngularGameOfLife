@@ -1,0 +1,11 @@
+<div class="color-toolbar">
+  <div class="color-item" *ngFor="let state of cellStates">
+    <label [for]="'color-' + state">{{getStateName(state)}}</label>
+    <input
+      [id]="'color-' + state"
+      type="color"
+      [value]="getColor(state)"
+      (change)="onColorChange(state, $event)"
+    >
+  </div>
+</div>

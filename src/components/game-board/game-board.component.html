@@ -4,11 +4,12 @@
     <span>Turn: {{ turnNumber }}</span>
     <button (click)="advanceTurn()">Next Turn</button>
   </div>
+  <app-cell-color-toolbar></app-cell-color-toolbar>
   <div class="game-board">
     @for (row of board; track row; let i = $index) {
       <div class="board-row">
         @for (cell of board[i]; track cell; let j = $index) {
-          <div [ngClass]="getCellClasses(i, j)" (click)="toggleCell(i, j)"></div>
+          <div class="cell" [ngStyle]="getCellStyles(i, j)" (click)="toggleCell(i, j)"></div>
         }
       </div>
     }

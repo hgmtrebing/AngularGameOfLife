@@ -4,20 +4,23 @@ import { GameStateService } from '../../services/game-state-service';
 import { CellState } from '../../types/CellState';
 import { CommonModule } from '@angular/common';
 import {Subscription} from 'rxjs';
+import {CellColorService} from '../../services/cell-color.service';
+import {CellColorToolbarComponent} from '../cell-color-toolbar/cell-color-toolbar.component';
 
 @Component({
   standalone: true,
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, CellColorToolbarComponent]
 })
 export class GameBoardComponent implements OnInit {
 
   private subscription: Subscription|undefined;
   boardData: CellState[][]|undefined;
 
-  constructor(private gameStateService: GameStateService) {}
+  constructor(private gameStateService: GameStateService,
+              private cellColorService: CellColorService) {}
 
   ngOnInit(): void {
     this.subscription = this.gameStateService.getCurrentTurnObservable()
@@ -68,5 +71,14 @@ export class GameBoardComponent implements OnInit {
       [cellState]: true
     };
   }
+
+  // Update the getCellClasses method to use dynamic styles
+  getCellStyles(row: number, col: number): { [key: string]: string } {
+    const state = this.board[row][col];
+    return {
+      'background-color': this.cellColorService.getColor(state)
+    };
+  }
+
 
 }
