@@ -1,0 +1,16 @@
+<div class="game-container">
+  <div class="game-controls">
+    <button (click)="previousTurn()" [disabled]="turnNumber === 0">Previous Turn</button>
+    <span>Turn: {{ turnNumber }}</span>
+    <button (click)="advanceTurn()">Next Turn</button>
+  </div>
+  <div class="game-board">
+    @for (row of board; track row; let i = $index) {
+      <div class="board-row">
+        @for (cell of board[i]; track cell; let j = $index) {
+          <div [ngClass]="getCellClasses(i, j)" (click)="toggleCell(i, j)"></div>
+        }
+      </div>
+    }
+  </div>
+</div>
