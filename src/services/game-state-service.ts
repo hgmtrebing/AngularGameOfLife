@@ -36,12 +36,6 @@ export class GameStateService {
   modifyCell(row: number, col: number): void {
     this.currentTurn.modifyCell(row, col);
     this.currentTurnSubject.next(this.currentTurn);
-
-    if (this.currentTurn.children.length === 0) {
-      return;
-    }
-
-    // Eventually, I will need logic to check the state of the children and add/remove parent nodes as needed
   }
 
   advanceToNextTurn(): void {
@@ -73,10 +67,8 @@ export class GameStateService {
       }
     }
 
-    // Create new turn and establish parent-child relationship
-    const nextTurn = new GameTurn(nextBoard, this.currentTurn.turn_number + 1, this.currentTurn);
-    this.currentTurn.addChild(nextTurn);
-    this.currentTurn = nextTurn;
+    // Create new turn
+    this.currentTurn = new GameTurn(nextBoard, this.currentTurn.turn_number + 1, this.currentTurn);
     this.currentTurnSubject.next(this.currentTurn);
   }
 

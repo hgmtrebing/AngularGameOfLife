@@ -27,13 +27,6 @@ export class GameTurn {
   parent: GameTurn | null;
 
   /**
-   * Array of all possible next turns that branch from this turn.
-   * Multiple children represent different sets of user modifications
-   * that were applied to the same board state.
-   */
-  children: GameTurn[];
-
-  /**
    * Creates a new GameTurn instance.
    * @param board - The state of the board for this turn
    * @param turn_number - The sequential number of this turn
@@ -48,7 +41,6 @@ export class GameTurn {
     this.board = board.map(row => [...row]);
     this.turn_number = turn_number;
     this.parent = parent;
-    this.children = [];
   }
 
   /**
@@ -61,14 +53,6 @@ export class GameTurn {
       this.turn_number,
       null
     );
-  }
-
-  /**
-   * Adds a new child turn to this turn's children array.
-   * @param childTurn - The GameTurn to add as a child
-   */
-  addChild(childTurn: GameTurn): void {
-    this.children.push(childTurn);
   }
 
   /**
